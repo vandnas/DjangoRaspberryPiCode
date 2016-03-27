@@ -1,0 +1,11 @@
+{% if b %}
+    <ul>
+    {% for book in b %}
+	<li>{{ book.book_name }}</li>
+        <li><p> "hello"</p></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No books available.</p>
+{% endif %}
+

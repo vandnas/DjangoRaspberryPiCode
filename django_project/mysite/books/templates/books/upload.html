@@ -1,0 +1,6 @@
+<form action="{% url 'books_upload' %}" method="post">                                                             
+  {% csrf_token %}
+  <label for="content"></label>
+  <input type="text" name="content" id="content" />
+  <input type="submit" />
+</form>
