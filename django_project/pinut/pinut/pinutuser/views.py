@@ -7,7 +7,7 @@ from django.http import HttpResponse
 import time
 import json
 import os
-from pinutuser import PINUT_DEVICE_MAC, PINUT_USER_INTRO_FILE_PATH, PINUT_USER_FILE_PATH, PINUT_CONNECTION_FILE_PATH
+from pinutuser import PINUT_MAC, PINUT_USER_INTRO_FILE_PATH, PINUT_USER_FILE_PATH, PINUT_CONNECTION_FILE_PATH
 
 def get_pinut_device_timestamp():
 	#The time.time() function returns the number of seconds since the epoch as seconds in UTC.
@@ -22,7 +22,7 @@ def remove_colons_from_mac(mac):
 	MAC = ''.join([str(mac) for mac in mac_list])
 	return MAC
 
-PINUT_MAC = remove_colons_from_mac(PINUT_DEVICE_MAC)
+PINUT_MAC = remove_colons_from_mac(PINUT_MAC)
 today_date = get_pinut_device_date()
 
 #PINUT USER INTRO FILE

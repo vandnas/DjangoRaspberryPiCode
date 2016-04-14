@@ -1,10 +1,11 @@
 from django.conf import settings
 import os
 
-PINUT_PATH="/home/vandna/pinut"
-PINUT_USER_INTRO_FILE_PATH = PATH + "/" + "PinutUserIntroFiles"
-PINUT_USER_FILE_PATH = PATH + "/" + "PinutUserFiles"
-PINUT_CONNECTION_FILE_PATH = PATH + "/" + "PinutConnectionFiles"
+PATH="/home/pi"
+PINUT_JSON_FILE_DIR = PATH + "/" + "PinutJsonFiles"
+PINUT_USER_INTRO_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutUserIntroFiles"
+PINUT_USER_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutUserFiles"
+PINUT_CONNECTION_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutConnectionFiles"
 
 def get_pinut_mac_address():
         # Return the MAC address of interface
@@ -23,6 +24,7 @@ def create_directory(path):
 
 
 PINUT_MAC = get_pinut_mac_address()
+create_directory(PINUT_JSON_FILE_DIR)
 create_directory(PINUT_USER_INTRO_FILE_PATH)
 create_directory(PINUT_USER_FILE_PATH)
 create_directory(PINUT_CONNECTION_FILE_PATH)
