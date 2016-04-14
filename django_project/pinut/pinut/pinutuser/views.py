@@ -10,7 +10,7 @@ import os
 from pinutuser import PINUT_DEVICE_MAC, PINUT_USER_INTRO_FILE_PATH, PINUT_USER_FILE_PATH, PINUT_CONNECTION_FILE_PATH
 
 def get_pinut_device_timestamp():
-	#Check if local Or UTC needs to be sent ??
+	#The time.time() function returns the number of seconds since the epoch as seconds in UTC.
 	return int(time.time())
 
 def get_pinut_device_date():
