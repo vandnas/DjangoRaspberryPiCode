@@ -6,6 +6,7 @@ PINUT_JSON_FILE_DIR = PATH + "/" + "PinutJsonFiles"
 PINUT_USER_INTRO_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutUserIntroFiles"
 PINUT_USER_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutUserFiles"
 PINUT_CONNECTION_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutConnectionFiles"
+PINUT_FEEDBACK_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutFeedbackFiles"
 
 def get_pinut_mac_address():
         # Return the MAC address of interface
@@ -28,4 +29,5 @@ create_directory(PINUT_JSON_FILE_DIR)
 create_directory(PINUT_USER_INTRO_FILE_PATH)
 create_directory(PINUT_USER_FILE_PATH)
 create_directory(PINUT_CONNECTION_FILE_PATH)
+create_directory(PINUT_FEEDBACK_FILE_PATH)
 

@@ -7,7 +7,7 @@ from django.http import HttpResponse
 import time
 import json
 import os
-from pinutuser import PINUT_MAC, PINUT_USER_INTRO_FILE_PATH, PINUT_USER_FILE_PATH, PINUT_CONNECTION_FILE_PATH
+from pinutuser import PINUT_MAC, PINUT_USER_INTRO_FILE_PATH, PINUT_USER_FILE_PATH, PINUT_CONNECTION_FILE_PATH, PINUT_FEEDBACK_FILE_PATH
 
 def get_pinut_device_timestamp():
 	#The time.time() function returns the number of seconds since the epoch as seconds in UTC.
@@ -42,6 +42,12 @@ PINUT_USER_JSON_FILE=str(PINUT_USER_FILE_PATH)+"/"+str(PINUT_USER_FILE_NAME)+"_"
 #{c1:f5:c6:0c:b9:ef:{"connection":1}}
 PINUT_CONNECTION_FILE_NAME="PinutConnection"
 PINUT_CONNECTION_JSON_FILE=str(PINUT_CONNECTION_FILE_PATH)+"/"+str(PINUT_CONNECTION_FILE_NAME)+"_"+(PINUT_MAC)+"_"+str(today_date)+".json"
+
+
+#PINUT FEEDBACK FILE
+#{ "cl_mac":"c7:f5:c6:0c:b9:ef", "phone":”8000678800”, "email_id":"c1@gmail.com", "name":"priya", "ride_experience":3, "pinut_experience":5, “comment”:”Love the new entertainment media”}
+PINUT_FEEDBACK_FILE_NAME="PinutFeedback"
+PINUT_FEEDBACK_JSON_FILE=str(PINUT_FEEDBACK_FILE_PATH)+"/"+str(PINUT_FEEDBACK_FILE_NAME)+"_"+(PINUT_MAC)+"_"+str(today_date)+".json"
 #TODO:Zip json files
 
 def byteify(input):
@@ -153,3 +159,25 @@ def connectioninfo(request):
 		return HttpResponse("You're in GET request.")
 		
 		
+#Dump into Feedback Json Files
+#POST REQUEST
+def feedback(request):
+
+	if request.method == "POST":
+		pinut_feedback_dict={}
+		#Get body from post request
+		msg=request.body;
+		#Decode it
+		string_msg=msg.decode("utf-8")
+		#Load into Json format
+		json_data=json.loads(string_msg);
+		#Byteify it
+		pinut_feedback_dict=byteify(json_data)
+		with open(PINUT_FEEDBACK_JSON_FILE, 'a') as fp:
+			json.dump(pinut_user_dict, fp)
+			fp.write('\n')
+		
+		return HttpResponse("You're in POST request.")
+	else:
+		print "Its a GET request"
+		return HttpResponse("You're in GET request.")
