@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -164,17 +166,21 @@ def connectioninfo(request):
 def feedback(request):
 
 	if request.method == "POST":
+		print "Inside feedback func"
 		pinut_feedback_dict={}
 		#Get body from post request
 		msg=request.body;
 		#Decode it
 		string_msg=msg.decode("utf-8")
+		print "string_msg",string_msg
 		#Load into Json format
-		json_data=json.loads(string_msg);
+		json_data=json.loads(string_msg)
+		print "json_data",json_data
 		#Byteify it
 		pinut_feedback_dict=byteify(json_data)
+		print "pinut_feedback_dict",pinut_feedback_dict
 		with open(PINUT_FEEDBACK_JSON_FILE, 'a') as fp:
-			json.dump(pinut_user_dict, fp)
+			json.dump(pinut_feedback_dict, fp)
 			fp.write('\n')
 		
 		return HttpResponse("You're in POST request.")
