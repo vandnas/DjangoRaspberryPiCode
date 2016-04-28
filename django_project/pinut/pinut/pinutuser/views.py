@@ -166,19 +166,15 @@ def connectioninfo(request):
 def feedback(request):
 
 	if request.method == "POST":
-		print "Inside feedback func"
 		pinut_feedback_dict={}
 		#Get body from post request
 		msg=request.body;
 		#Decode it
 		string_msg=msg.decode("utf-8")
-		print "string_msg",string_msg
 		#Load into Json format
 		json_data=json.loads(string_msg)
-		print "json_data",json_data
 		#Byteify it
 		pinut_feedback_dict=byteify(json_data)
-		print "pinut_feedback_dict",pinut_feedback_dict
 		with open(PINUT_FEEDBACK_JSON_FILE, 'a') as fp:
 			json.dump(pinut_feedback_dict, fp)
 			fp.write('\n')
