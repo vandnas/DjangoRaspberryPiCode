@@ -54,8 +54,8 @@ def send_old_json_files_to_upload_dir(TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMES
 		if os.path.exists(PINUT_JSON_FILEPATH):
 			for dir in os.listdir(PINUT_JSON_FILEPATH):
 				DIR_PATH=PINUT_JSON_FILEPATH + "/" + str(dir)
-				for file in os.listdir(DIR_PATH):
-					FILE_PATH=DIR_PATH + "/" + str(file)
+				for filename in os.listdir(DIR_PATH):
+					FILE_PATH=DIR_PATH + "/" + str(filename)
 					date_in_filename = get_params_from_pinutuser_file(FILE_PATH)
 					file_timestamp = convert_date_str_to_timestamp(date_in_filename)
 					current_timestamp = get_pinut_device_timestamp()

@@ -2,6 +2,7 @@ import requests
 import gzip
 import json
 import os
+import shutil
 import urllib2
 
 
@@ -36,10 +37,16 @@ def upload_folder_to_aws():
 			for folder in os.listdir(TEMP_UPLOAD_PINUT_JSON_FILEPATH):
 				with open(TEMP_UPLOAD_PINUT_JSON_FILEPATH+"/"+folder, 'r') as content_file:
 					content = content_file.read()
-				print "content",content
 				#r = requests.post(AWS_URL, content, auth=(USERNAME, PASSWORD))
 				r = requests.post(AWS_URL, content)
-				print "r.info", r.status_code
+				httpd_code = r.status_code
+				print "HTTPD STATUS : ",httpd_code
+				if httpd_code == 200:
+					print "Json File Upload Successful to AWS :", folder
+					shutil.rmtree(folder, ignore_errors=True)
+				else:
+					print "Unable to upload Json File to AWS.. Will try next time :", folder
+				
 	except Exception, e:
 		print "Error in uploading folder to aws", e
 		raise
