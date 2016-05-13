@@ -67,19 +67,14 @@ def byteify(input):
 #Dump into User Json Files
 #POST REQUEST
 def userintro(request):
-	print "Inside user intro file" , PINUT_MAC
 	if request.method == "POST":
-		print "Inside POST request"
 		pinut_user_intro_dict={}
 		#Get body from post request
 		msg=request.body;
-		print "msg",msg
 		#Decode it
 		string_msg=msg.decode("utf-8")
-		print "string_msg",string_msg
 		#Load into Json format
 		json_data=json.loads(string_msg);
-		print "json_data",json_data
 		#Byteify it
 		pinut_user_intro_dict=byteify(json_data)
 		with open(PINUT_USER_INTRO_JSON_FILE, 'a') as fp:
@@ -88,7 +83,6 @@ def userintro(request):
 		
 		return HttpResponse("You're in POST request.")
 	else:
-		print "Its a GET request"
 		return HttpResponse("You're in GET request.")
 
 
@@ -113,7 +107,6 @@ def userinfo(request):
 		
 		return HttpResponse("You're in POST request.")
 	else:
-		print "Its a GET request"
 		return HttpResponse("You're in GET request.")
 
 #Dump into COnnection Json Files
@@ -157,7 +150,6 @@ def connectioninfo(request):
 
 		return HttpResponse("You're in POST request.")
 	else:
-		print "Its a GET request"
 		return HttpResponse("You're in GET request.")
 		
 		
@@ -181,5 +173,4 @@ def feedback(request):
 		
 		return HttpResponse("You're in POST request.")
 	else:
-		print "Its a GET request"
 		return HttpResponse("You're in GET request.")

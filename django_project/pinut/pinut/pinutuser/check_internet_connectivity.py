@@ -1,15 +1,16 @@
+#!/usr/bin/python
+
 import requests
-import gzip
-import json
 import os
 import shutil
 import urllib2
+import datetime
 
 
 TEMP_UPLOAD_PINUT_JSON_FILEPATH="/home/pi/UploadDir"
 AWS_URL = "http://54.169.232.88:8000/pinutcloud/uploadjsonfiles/"
-USERNAME="admin"
-PASSWORD="admin"
+#USERNAME="admin"
+#PASSWORD="admin"
 
 
 def test_internet_connection():
@@ -17,10 +18,8 @@ def test_internet_connection():
 	ic_flag=0
 	while loop_value:
 		try:
-			print "IN TRY"
 			urllib2.urlopen("http://google.com")
 		except urllib2.URLError, e:
-			print "IN EXCEPT"
 			print "Network currently down."
 		else:
 			print( "Up and running." )
@@ -42,13 +41,13 @@ def upload_folder_to_aws():
 				httpd_code = r.status_code
 				print "HTTPD STATUS : ",httpd_code
 				if httpd_code == 200:
-					print "Json File Upload Successful to AWS :", folder
+					print ("%s: Json File Upload Successful to AWS : %s" % (datetime.datetime.utcnow(), folder))
 					shutil.rmtree(folder, ignore_errors=True)
 				else:
-					print "Unable to upload Json File to AWS.. Will try next time :", folder
+					print ("%s: Unable to upload Json File to AWS : %s .. Will try next time" % (datetime.datetime.utcnow(), folder))
 				
 	except Exception, e:
-		print "Error in uploading folder to aws", e
+		print ("Error in uploading folder to aws : %s" % e)
 		raise
 				
 				

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import shutil
 import time
 import os
@@ -22,7 +24,7 @@ def get_params_from_pinutuser_file(filename):
                 date_in_filename=str(day)+"-"+str(month)+"-"+str(year)
                 return date_in_filename
         except Exception, e:
-                logging.exception("Exception [%s] in getting params for filename[%s] ", e, filename)
+		print ("Exception: %s in getting params for filename: %s"% (e, filename))
                 raise
 
 
@@ -43,9 +45,9 @@ def create_directory(path):
         try:
                 if not os.path.exists(path):
                         os.makedirs(path)
-			#os.chmod(path, mode)
         except Exception,e:
-                print "Exception : %s Not able to create directory : %s" % (e,path)
+		print ("Exception: %s Not able to create directory : %s"% (e, path))
+		raise
 
 
 def send_old_json_files_to_upload_dir(TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP):
@@ -61,16 +63,16 @@ def send_old_json_files_to_upload_dir(TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMES
 					current_timestamp = get_pinut_device_timestamp()
 					oneday = 60*60*24 # Number of seconds in one day
 					if (current_timestamp - file_timestamp) > oneday:
-						#shutil.move(FILE_PATH , TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP)
-						print "Copying file :",FILE_PATH, "to :",TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP
-						shutil.copy2(FILE_PATH , TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP)
+						print "Moving file :",FILE_PATH, "to :",TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP
+						shutil.move(FILE_PATH , TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP)
+						#shutil.copy2(FILE_PATH , TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP)
 
 		#Create zip folder
                 shutil.make_archive(TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP, 'zip', TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP)
                 shutil.rmtree(TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP, ignore_errors=True)
 
 	except Exception, e:
-		print "Error in sending old json files to upload dir", e
+		print ("Error in sending old json files to upload dir : %s" % e)
 		raise
 
 
@@ -81,7 +83,7 @@ def send_files_to_upload_dir():
                 create_directory(TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP)
 		send_old_json_files_to_upload_dir(TEMP_UPLOAD_PINUT_JSON_FILEPATH_WITH_TIMESTAMP)
 	except Exception, e:
-		print "Error in uploading folder to aws", e
+		print ("Error in uploading folder to aws : %s" % e)
 		raise
 				
 				
