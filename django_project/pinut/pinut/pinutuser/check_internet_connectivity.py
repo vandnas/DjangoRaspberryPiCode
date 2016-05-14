@@ -38,10 +38,8 @@ def upload_folder_to_aws():
 				#r = requests.post(AWS_URL, content, auth=(USERNAME, PASSWORD))
 				r = requests.post(AWS_URL, content)
 				httpd_code = r.status_code
-				print "HTTPD STATUS : ",httpd_code
 				if httpd_code == 200:
 					print ("%s: Json File Upload Successful to AWS : %s" % (datetime.datetime.utcnow(), folder))
-					print "Removing folder from upload dir (pi):",TEMP_UPLOAD_PINUT_JSON_FILEPATH+"/"+folder
 					os.remove(TEMP_UPLOAD_PINUT_JSON_FILEPATH+"/"+folder)
 				else:
 					print ("%s: Unable to upload Json File to AWS : %s .. Will try next time" % (datetime.datetime.utcnow(), folder))
@@ -53,7 +51,8 @@ def upload_folder_to_aws():
 				
 if __name__ == '__main__':
 	try:
-		upload_folder_to_aws()	
+		if os.listdir(TEMP_UPLOAD_PINUT_JSON_FILEPATH) != []:
+			upload_folder_to_aws()	
 	except Exception, e:
 		print ("Exception %s" % e)
 			
