@@ -2,13 +2,12 @@
 
 import requests
 import os
-import shutil
 import urllib2
 import datetime
 
 
 TEMP_UPLOAD_PINUT_JSON_FILEPATH="/home/pi/UploadDir"
-AWS_URL = "http://54.169.232.88:8000/pinutcloud/uploadjsonfiles/"
+AWS_URL = "http://54.169.232.88:8080/pinutcloud/uploadjsonfiles/"
 #USERNAME="admin"
 #PASSWORD="admin"
 
@@ -42,7 +41,8 @@ def upload_folder_to_aws():
 				print "HTTPD STATUS : ",httpd_code
 				if httpd_code == 200:
 					print ("%s: Json File Upload Successful to AWS : %s" % (datetime.datetime.utcnow(), folder))
-					shutil.rmtree(folder, ignore_errors=True)
+					print "Removing folder from upload dir (pi):",TEMP_UPLOAD_PINUT_JSON_FILEPATH+"/"+folder
+					os.remove(TEMP_UPLOAD_PINUT_JSON_FILEPATH+"/"+folder)
 				else:
 					print ("%s: Unable to upload Json File to AWS : %s .. Will try next time" % (datetime.datetime.utcnow(), folder))
 				
@@ -52,7 +52,10 @@ def upload_folder_to_aws():
 				
 				
 if __name__ == '__main__':
-	upload_folder_to_aws()	
+	try:
+		upload_folder_to_aws()	
+	except Exception, e:
+		print ("Exception %s" % e)
 			
 			
 		

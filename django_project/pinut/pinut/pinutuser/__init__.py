@@ -8,6 +8,8 @@ PINUT_USER_INTRO_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutUserIntroFiles"
 PINUT_USER_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutUserFiles"
 PINUT_CONNECTION_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutConnectionFiles"
 PINUT_FEEDBACK_FILE_PATH = PINUT_JSON_FILE_DIR + "/" + "PinutFeedbackFiles"
+UPLOAD_JSON_FILE_TO_CLOUD_LOG_PATH="/home/pi/DjangoRaspberryPiCode/django_project/pinut/pinut/pinutuser"
+PINUT_LOG_FILE_PATH = UPLOAD_JSON_FILE_TO_CLOUD_LOG_PATH + "/" + "logs"
 
 def get_pinut_mac_address():
         # Return the MAC address of interface
@@ -26,10 +28,12 @@ def create_directory(path):
 
 
 PINUT_MAC = get_pinut_mac_address()
+print "PINUT_MAC", PINUT_MAC
 create_directory(PINUT_JSON_FILE_DIR)
 create_directory(UPLOAD_DIR)
 create_directory(PINUT_USER_INTRO_FILE_PATH)
 create_directory(PINUT_USER_FILE_PATH)
 create_directory(PINUT_CONNECTION_FILE_PATH)
 create_directory(PINUT_FEEDBACK_FILE_PATH)
+create_directory(PINUT_LOG_FILE_PATH)
 

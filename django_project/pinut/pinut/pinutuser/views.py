@@ -68,6 +68,7 @@ def byteify(input):
 #POST REQUEST
 def userintro(request):
 	if request.method == "POST":
+		print "user intro"
 		pinut_user_intro_dict={}
 		#Get body from post request
 		msg=request.body;
@@ -75,6 +76,7 @@ def userintro(request):
 		string_msg=msg.decode("utf-8")
 		#Load into Json format
 		json_data=json.loads(string_msg);
+		print "json data: ",json_data
 		#Byteify it
 		pinut_user_intro_dict=byteify(json_data)
 		with open(PINUT_USER_INTRO_JSON_FILE, 'a') as fp:
@@ -91,6 +93,7 @@ def userintro(request):
 def userinfo(request):
 
 	if request.method == "POST":
+		print "user info"
 		pinut_user_dict={}
 		#Get body from post request
 		msg=request.body;
@@ -98,6 +101,7 @@ def userinfo(request):
 		string_msg=msg.decode("utf-8")
 		#Load into Json format
 		json_data=json.loads(string_msg);
+		print "json data: ",json_data
 		#Byteify it
 		pinut_user_dict=byteify(json_data)
 		pinut_user_dict['device_timestamp']=get_pinut_device_timestamp()
@@ -113,6 +117,7 @@ def userinfo(request):
 #POST REQUEST
 def connectioninfo(request):
 	if request.method == "POST":
+		print "connection info"
 		connection_dict={}
 		pinut_connection_dict={}
 		#Get body from post request
@@ -121,6 +126,7 @@ def connectioninfo(request):
 		string_msg=msg.decode("utf-8")
 		#Load into Json format
 		json_data=json.loads(string_msg);
+		print "json data: ",json_data
 		#Byteify it
 		connection_dict=byteify(json_data)
 		cl_mac=connection_dict['cl_mac']
@@ -158,6 +164,7 @@ def connectioninfo(request):
 def feedback(request):
 
 	if request.method == "POST":
+		print "feedback"
 		pinut_feedback_dict={}
 		#Get body from post request
 		msg=request.body;
@@ -165,6 +172,7 @@ def feedback(request):
 		string_msg=msg.decode("utf-8")
 		#Load into Json format
 		json_data=json.loads(string_msg)
+		print "json data: ",json_data
 		#Byteify it
 		pinut_feedback_dict=byteify(json_data)
 		with open(PINUT_FEEDBACK_JSON_FILE, 'a') as fp:
